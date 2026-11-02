@@ -1,0 +1,32 @@
+{
+  "name": "@slackboard/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "NODE_OPTIONS=--conditions=development tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@agentclientprotocol/sdk": "2.2.0",
+    "@fastify/cookie": "11.1.5",
+    "@fastify/rate-limit": "11.2.1",
+    "@fastify/static": "10.1.8",
+    "@slack/bolt": "5.1.0",
+    "@slack/web-api": "8.3.0",
+    "@slackboard/acp": "workspace:*",
+    "@slackboard/integrations": "workspace:*",
+    "@slackboard/runner": "workspace:*",
+    "@slackboard/shared": "workspace:*",
+    "@slackboard/skills": "workspace:*",
+    "fastify": "5.12.7",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}

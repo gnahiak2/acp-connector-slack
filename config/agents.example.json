@@ -1,0 +1,16 @@
+{
+  "agents": [
+    {
+      "id": "example-acp-agent",
+      "name": "Example ACP agent",
+      "description": "Replace this profile with a verified agent invocation. No presets are claimed in this release.",
+      "executable": "/absolute/path/to/acp-agent",
+      "args": ["--acp"],
+      "env": ["PATH", "HOME"],
+      "runner": "local",
+      "authentication": "Complete the agent's documented login flow as the Slackboard service account before enabling this profile.",
+      "enabled": false,
+      "preset": false
+    }
+  ]
+}

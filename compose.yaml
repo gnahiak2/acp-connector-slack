@@ -1,0 +1,42 @@
+services:
+  slackboard:
+    build: .
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /data
+      HOST: 0.0.0.0
+      WEB_DIST: /app/apps/web/dist
+      SKILLS_DIR: /app/skills
+    volumes:
+      - slackboard_data:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:8787/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  slackboard_data:
+# Server mode with isolated agent containers:
+# - Set SLACKBOARD_MODE=server, RUNNER_TYPE=container and CONTAINER_IMAGE in .env.
+# - Mount the Docker socket only into the Slackboard backend (never into agent containers):
+#     - /var/run/docker.sock:/var/run/docker.sock
+# - Give the container process access to the socket group, e.g.:
+#     group_add: ["<host docker gid>"]
+# - Use identical host and container paths for data so sibling containers can mount
+#   the same absolute workspace path, for example:
+#     - /srv/slackboard/data:/srv/slackboard/data
+#   with DATA_DIR=/srv/slackboard/data and WORKSPACE_ROOT=/srv/slackboard/data/workspaces.
+# - Put an HTTPS reverse proxy in front of 127.0.0.1:8787 and set PUBLIC_URL.
